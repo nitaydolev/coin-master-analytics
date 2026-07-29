@@ -1,0 +1,17 @@
+# macOS system files
+.DS_Store
+
+# VS Code settings
+.vscode/
+
+# Credentials, never commit these
+*.json
+*.key
+*.pem
+credentials/
+keys/
+.env
+
+# Local scratch work
+scratch/
+tmp/
