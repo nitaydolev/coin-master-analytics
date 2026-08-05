@@ -8,7 +8,7 @@ OPTIONS (location = 'US');
 -- Build user_day_summary: aggregates raw fact events into one row per user per active day.
 -- This is the derived source of truth for all Main KPIs (retention, LTV, ARPU, etc.).
 -- CREATE OR REPLACE makes it safe to re-run; the table is fully rebuilt each time.
---
+
 -- Not computable from this data (defined in the report, not calculated):
 --   CPI and ROAS: require ad-spend data, which the source fact table does not contain.
 CREATE OR REPLACE TABLE `my-project-nitay.coin_master_project.user_day_summary`

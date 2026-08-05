@@ -1,6 +1,6 @@
 -- TUTORIAL
 -- ========
--- KPI: Time to Complete (TTC) per tutorial step, per app version.
+-- KPI 4: Time to Complete (TTC) per tutorial step, per app version.
 -- Grain: one row per app_version and step_index.
 
 -- avg_time is the mean of time_spent over tutorial_step_completed events. Only completed
