@@ -15,3 +15,6 @@ keys/
 # Local scratch work
 scratch/
 tmp/
+
+# report images, not part of the codebase
+queries/visualization/
