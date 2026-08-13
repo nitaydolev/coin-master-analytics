@@ -1,11 +1,11 @@
 # Coin Master Analytics
 
-SQL for a gaming analytics project: player behaviour from the first tutorial step through to the decision to pay.
+SQL queries behind a full gaming analytics project: player behaviour traced from the first tutorial step through to the decision to pay, across three datasets. The core one holds 15.8M events from 26,576 players. 98% of them opened the store. 1.68% ever paid. These queries are how that was found, and what was proposed about it.
 
-**Report:** [Google Doc](link)
-**Dashboard:** [Looker Studio](link)
+**Report:** [Google Doc](https://docs.google.com/document/d/17EkVPeVozpzkGG3yJgopeiF0uiVC8PaixIzPyPnO27k/edit?usp=sharing)
+**Dashboard:** [Looker Studio](https://datastudio.google.com/u/0/reporting/b5641790-f0f8-4c83-800a-b65caf10b76a/page/p_20u3ip1d6d)
 
-Data is synthetic, from the PPLTX analytics academy. Everything runs in Google BigQuery.
+Data is synthetic, from the PPLTX analytics academy, and some figures do not behave like a live product. The methods are built to hold on real data; the numbers they return are not benchmarks. Everything runs in Google BigQuery.
 
 ---
 
@@ -20,29 +20,23 @@ Data is synthetic, from the PPLTX analytics academy. Everything runs in Google B
 
 Folders are listed alphabetically by GitHub. The order above is the analytical one.
 
+Every `.sql` file opens with a comment block: what it computes, at what grain, and why.
+
 ---
 
-## Layout
+## Data sources
 
-```
-queries/
-├── tutorial/          funnel, drop-off, time to complete
-├── main-kpis/
-│   ├── build/         user_day_summary, the derived source of truth
-│   ├── kpis/          acquisition, engagement, retention, monetization
-│   └── validation/    data quality checks
-├── product/           store funnel and cancellation analysis
-└── dashboard/         daily_dashboard, retention
-```
+Three separate datasets, each suited to a different question.
 
-Every `.sql` file opens with a comment block: the KPI it computes, the grain of the output, and any decision that needed justifying.
+| Dataset | Used by | Why |
+|---|---|---|
+| `final_project.tutorial` | `tutorial/` | Onboarding events across nine steps and five app versions |
+| `final_project.fact` | `main-kpis/`, `product/` | 15.8M events from a closed install cohort, right for cohort economics |
+| `PlayPltx` | `dashboard/` | Continuous daily installs, with country and platform, right for an operational dashboard |
 
 ---
 
 ## Notes
 
-`main-kpis/build/user_day_summary.sql` runs first. Most other queries read from the table it creates.
-
-CPI and ROAS are not computed. They need ad spend, which the source data does not have.
-
-The dashboard runs on a second dataset with continuous daily installs, since the main dataset is a closed cohort.
+1. Inside `main-kpis/`, `build/` creates the derived tables, `kpis/` holds the metrics that read from them, and `validation/` holds the data quality checks. Run `build/` first.
+2. CPI and ROAS are not computed. They need ad spend, which the source data does not have.
