@@ -17,4 +17,4 @@ scratch/
 tmp/
 
 # report images, not part of the codebase
-queries/visualization/
+visualization/
