@@ -1,29 +1,48 @@
 # Coin Master Analytics
 
-Gaming analytics capstone project. SQL, KPI modelling, dashboard design and A/B test planning for a free to play mobile title.
+SQL for a gaming analytics project: player behaviour from the first tutorial step through to the decision to pay.
 
-## About
+**Report:** [Google Doc](link)
+**Dashboard:** [Looker Studio](link)
 
-Coin Master (Moon Active) is used as the analytical framing. The underlying data is synthetic course data from PPLTX and does not represent the real game.
+Data is synthetic, from the PPLTX analytics academy. Everything runs in Google BigQuery.
 
-The dataset covers 26,576 users over a 1,355 day window. All users installed inside a 70 day window, so this is a closed cohort: a retention and monetization story rather than an acquisition one.
+---
 
-## Repository structure
+## Read in this order
 
-queries/main-kpis/build/       source of truth table, user-day grain
-queries/main-kpis/kpis/        acquisition, engagement, monetization, retention
-queries/main-kpis/validation/  data quality checks
-queries/product/               analysis behind the feature proposal
-queries/tutorial/              funnel and time to complete
+| Folder | What it answers |
+|---|---|
+| `tutorial/` | Do players finish onboarding, and does it teach them the game? |
+| `main-kpis/` | How many play, how long they stay, and what they are worth |
+| `product/` | Where the store funnel leaks |
+| `dashboard/` | Serving tables behind the Looker Studio dashboard |
 
-## Selected findings
+Folders are listed alphabetically by GitHub. The order above is the analytical one.
 
-Revenue fell 98% between 2022 and 2024 while ARPDAU held between $0.0575 and $0.0516. The decline is a volume story, not a monetization one.
+---
 
-84% of users reached the checkout and did not pay. 22,382 started a purchase and cancelled it, against 446 who completed one.
+## Layout
 
-Classic day-N retention rises with day number, an artifact of sparse activity. Rolling retention is the usable curve: 83.05% at D30.
+```
+queries/
+├── tutorial/          funnel, drop-off, time to complete
+├── main-kpis/
+│   ├── build/         user_day_summary, the derived source of truth
+│   ├── kpis/          acquisition, engagement, retention, monetization
+│   └── validation/    data quality checks
+├── product/           store funnel and cancellation analysis
+└── dashboard/         daily_dashboard, retention
+```
 
-## Tools
+Every `.sql` file opens with a comment block: the KPI it computes, the grain of the output, and any decision that needed justifying.
 
-BigQuery, Google Data Studio, VS Code, G*Power.
+---
+
+## Notes
+
+`main-kpis/build/user_day_summary.sql` runs first. Most other queries read from the table it creates.
+
+CPI and ROAS are not computed. They need ad spend, which the source data does not have.
+
+The dashboard runs on a second dataset with continuous daily installs, since the main dataset is a closed cohort.
