@@ -6,7 +6,7 @@ CREATE SCHEMA IF NOT EXISTS `my-project-nitay.coin_master_project`
 OPTIONS (location = 'US');
 
 -- Build user_day_summary: aggregates raw fact events into one row per user per active day.
--- This is the derived source of truth for all Main KPIs (retention, LTV, ARPU, etc.).
+-- This is the derived source of trquth for all Main KPIs (retention, LTV, ARPU, etc.).
 -- CREATE OR REPLACE makes it safe to re-run; the table is fully rebuilt each time.
 
 -- Not computable from this data (defined in the report, not calculated):
